@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<script>
+function check(){
+    var enter ="※入力して下さい。";
+    var nameElement=document.getElementById("namecheck");//.innerHTMLまでを変数に入れるとうまく動かない
+    var subElement=document.getElementById("subcheck");
+    var bodyElement=document.getElementById("bodycheck");
+    if(document.getElementById('name').value==""){//nameが空なら、入力して下さいの文字を出現させる。name:sub:body×××
+        nameElement.innerHTML=enter;
+        if(document.getElementById('sub').value==""){//nameが空、かつsubが空なら、入力して下さいの文字を出現させる
+        subElement.innerHTML=enter;
+            if(document.getElementById('body').value==""){//nameが空、かつsubが空、かつbodyが空なら。name:sub:bod××○
+            bodyElement.innerHTML=enter;
+            }else{
+            bodyElement.innerHTML="";
+            }
+        }else{
+            if(document.getElementById('body').value==""){//name:sub:body×○×と×○○
+            subElement.innerHTML="";
+            bodyElement.innerHTML=enter;
+            }else{
+            bodyElement.innerHTML="";
+            }
+        }
+        return false;
+    }else if(document.getElementById('sub').value==""){//nameが○でもsubが空なら、nameは○なのでinnerHTMLは空に（再読み込みの際に文字を消すためname:sub:body○××と○×○
+        nameElement.innerHTML="";
+        subElement.innerHTML=enter;
+        if(document.getElementById('body').value==""){
+            bodyElement.innerHTML=enter;
+        }
+        return false;
+    }else if(document.getElementById('body').value==""){//name:sub:body○○×のみ
+        subElement.innerHTML="";
+        bodyElement.innerHTML=enter;
+        return false;
+    }else{
+        return true;
+    }
+}
+</script>
+</head>
+<body>
+<form id="x1" name="x1" method="post" action="" onsubmit="return check()">
+<dl>
+<dt><label for="name">名前（10文字まで）※必須</label><div id="namecheck"></div></dt>
+<dd><input type="text" name="name" id="name" size="50" maxlength="10" /></dd>
+<dt><label for="sub">件名（10文字まで）※必須</label><div id="subcheck"></div></dt>
+<dd><input type="text" name="sub" id="sub" size="50" maxlength="10" /></dd>
+<dt><label for="body">インプットエリア（10文字まで）※必須</label><div id="bodycheck"></div></dt>
+<dd><textarea id="body" name="body" cols="50" rows="10" maxlength="10"></textarea></dd>
+<dt><label for="password">パスワード（１１３９）</label></dt>
+<dd><input type="password" id="pass" name="pass" size="10" maxlength="4" /></dd>
+</dl>
+<input type="submit" value="書き込み" />
+</form>
+</body>
+</html>
